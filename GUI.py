@@ -17,30 +17,77 @@ def surveillance():
     s = ttk.Style()
     s.theme_use('clam')
 
-    tree = ttk.Treeview(survWindow, column=("c1", "c2", "c3", "c4", "c5"), show='headings', height=5)
+    tree = ttk.Treeview(survWindow, column=("c1", "c2", "c3", "c4"), show='headings', height=5)
     tree.column("# 1", anchor=CENTER)
-    tree.heading("# 1", text="ID")
+    tree.heading("# 1", text="IP")
     tree.column("# 2", anchor=CENTER)
-    tree.heading("# 2", text="User")
+    tree.heading("# 2", text="MAC Address")
     tree.column("# 3", anchor=CENTER)
-    tree.heading("# 3", text="Join Time")
+    tree.heading("# 3", text="Device")
     tree.column("# 4", anchor=CENTER)
-    tree.heading("# 4", text="Location")
-    tree.column("# 5", anchor=CENTER)
-    tree.heading("# 5", text="Leave Time")
+    tree.heading("# 4", text="Ports")
 
     tree.pack()
 
 def users():
     userWindow = Toplevel(window)
     userWindow.title("Users")
-    userWindow.geometry('800x800')
+    userWindow.geometry('400x400')
 
-    btn1 = Button(userWindow, text="Authenticate")
-    btn1.grid(column=0,row=0,sticky=NW)
+    btn1 = Button(userWindow, text="Authenticate",command=Add)
+    #btn1.grid(column=0,row=0,sticky=NW)
+    btn1.pack()
 
-    btn2 = Button(userWindow, text="Deauthenticate")
-    btn2.grid(column=1,row=0,sticky=NW)
+    btn2 = Button(userWindow, text="Deauthenticate",command=Remove)
+    #btn2.grid(column=1,row=0,sticky=NW)
+    btn2.pack()
+
+    t = ttk.Style()
+    t.theme_use('clam')
+
+    tree = ttk.Treeview(userWindow, column=("c1","c2"), show='headings', height=5)
+    tree.column("# 1", anchor=CENTER)
+    tree.heading("# 1", text="IP")
+    tree.column("# 2", anchor=CENTER)
+    tree.heading("# 2", text="MAC Address")
+
+    tree.pack()
+
+
+
+
+def Add():
+
+    addWindow = Toplevel(window)
+    addWindow.title("Add User")
+    addWindow.geometry('200x100')
+
+    entry1 = Entry(addWindow, textvariable=name_var, font =('calibre',10,'bold'))
+    entry1.pack(side=LEFT,expand=TRUE)
+
+
+    bt6=Button(addWindow,text='Submit',command=submit)
+    bt6.pack(side=RIGHT,expand=TRUE)
+
+
+def Remove():
+    addWindow = Toplevel(window)
+    addWindow.title("Remove User")
+    addWindow.geometry('200x100')
+
+    entry1 = Entry(addWindow, textvariable=name_var, font =('calibre',10,'bold'))
+    entry1.pack(side=LEFT,expand=TRUE)
+
+
+    bt4=Button(addWindow,text='Submit',command=submit)
+    bt4.pack(side=RIGHT,expand=TRUE)
+
+def submit():
+    name=name_var.get()
+
+    name_var.set("")
+
+
 
     
 window = Tk()
@@ -49,6 +96,7 @@ window = Tk()
 window.title("WiFi Wardens")
 window.geometry('800x800')
 window.configure(bg="white")
+name_var= StringVar()
 
 
 frame=Frame(window,width=50, height=50)
